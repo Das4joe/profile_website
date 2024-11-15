@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Portfolio</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2c7a7b;
+      --accent: #4fd1c5;
+      --background: #f7fafc;
+      --text: #2d3748;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode {
+      --primary: #0a192f;
+      --secondary: #64ffda;
+      --accent: #38b2ac;
+      --background: #1a202c;
+      --text: #e2e8f0;
+      --card-bg: rgba(26, 32, 44, 0.7);
+      --shadow: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+
+    .hero-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .profile-img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 20px 20px 60px var(--shadow),
+        -20px -20px 60px var(--shadow);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .typed-text {
+      color: var(--accent);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--secondary);
+    }
+
+    /* About Section */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 20px 20px 60px var(--shadow),
+        -20px -20px 60px var(--shadow);
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 20px 20px 60px var(--shadow),
+        -20px -20px 60px var(--shadow);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .skill-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Section */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 20px 20px 60px var(--shadow),
+        -20px -20px 60px var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--secondary);
+      border-radius: 10px;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .submit-btn {
+      background: var(--secondary);
+      color: var(--background);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card-bg);
+      padding: 2rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+    /* General section styling */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2em;
+    margin-bottom: 40px;
+}
+
+/* Project card styling */
+.project-card {
+    background: var(--card-bg); /* Uses the dynamic variable for light/dark background */
+    padding: 20px;
+    border-radius: 20px; /* Matches the rounded edges of other cards */
+    box-shadow: 20px 20px 60px var(--shadow), -20px -20px 60px var(--shadow); /* Glow effect */
+    text-align: left;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px); /* Slight lift on hover for interactivity */
+}
+
+.project-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    color: var(--text); /* Uses dynamic text color */
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: var(--text); /* Uses dynamic text color */
+    margin-bottom: 15px;
+}
+
+.project-link {
+    color: var(--secondary); /* Link color adapts to the theme */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: var(--accent); /* Hover color adapts to the theme */
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+
+  <nav>
+    <div class="logo">Portfolio</div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Work</a> <!-- Added Work link -->
+        <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+</nav>
+
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Hello, I'm Dasbang</h1>
+        <div class="typed-text"></div>
+        <p>Passionate about Data science, writing and creating amazing web designs and experiences</p>
+      </div>
+      <div class="hero-image">
+        <img src="https://i.postimg.cc/6QhB3C2p/Trans-Dasbang-Image-1.png" alt="Profile" class="profile-img">
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about">
+      <div class="about-text" data-aos="fade-right">
+        <p>I am a versatile professional with expertise in data science, front-end development, writing, and merchandise creation. I have published significant work in machine learning and waste management, both on Earth and in space. My passion for technology and creativity drives me to explore innovative solutions and share my knowledge through various platforms.</p>
+      </div>
+      <div class="about-text" data-aos="fade-left">
+        <p>My approach combines creativity, technical excellence, and analytical rigor, ensuring that every project I undertake is visually stunning, perfectly functional, and data-driven.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card" data-aos="zoom-in">
+        <i class="fab fa-python skill-icon"></i>
+        <h3>Python</h3>
+        <p>Data analysis, machine learning, and web development</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+        <i class="fas fa-database skill-icon"></i> <!-- Generic icon for Julia -->
+        <h3>Julia</h3>
+        <p>High-performance computing for numerical analysis</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fas fa-database skill-icon"></i> <!-- Generic icon for MongoDB -->
+        <h3>MongoDB</h3>
+        <p>NoSQL database for flexible, scalable applications</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
+        <i class="fas fa-chart-line skill-icon"></i> <!-- Generic icon for R -->
+        <h3>R</h3>
+        <p>Statistical computing and data visualization</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="400">
+        <i class="fas fa-database skill-icon"></i>
+        <h3>MySQL</h3>
+        <p>Relational database management system for structured data</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="500">
+        <i class="fas fa-database skill-icon"></i>
+        <h3>PostgreSQL</h3>
+        <p>Advanced relational database with rich features</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="600">
+        <i class="fab fa-react skill-icon"></i>
+        <h3>React</h3>
+        <p>JavaScript library for building user interfaces</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in">
+        <i class="fab fa-html5 skill-icon"></i>
+        <h3>HTML5</h3>
+        <p>Semantic markup and modern HTML features</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+        <i class="fab fa-css3-alt skill-icon"></i>
+        <h3>CSS3</h3>
+        <p>Modern layouts and responsive design</p>
+      </div>
+      <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fab fa-js skill-icon"></i>
+        <h3>JavaScript</h3>
+        <p>Dynamic and interactive web applications</p>
+      </div>
+    </div>
+  </section>
+  <!--===== WORK =====-->
+<section class="work section" id="work">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
+        <div class="project-card">
+            <h3>Waste and the Future</h3>
+            <p>A comprehensive book exploring advanced technologies for waste management on Earth and in space.</p>
+            <a href="https://www.amazon.com/dp/B0DKCWBNF4?ref_=cm_sw_r_cp_ud_dp_0FB1K0XDBXWRQ70QWGXW&skipTwisterOG=1" class="project-link">View on Amazon →</a>
+        </div>
+        <div class="project-card">
+            <h3>Nigeria's Displacement Crisis</h3>
+            <p>An article analyzing displacement trends in Nigeria using data science techniques.</p>
+            <a href="https://medium.com/towardsdev/unmasking-the-alarming-trends-nigerias-displacement-crisis-exposed-12a4c4e3fa6d" class="project-link">Read on Medium →</a>
+        </div>
+        <div class="project-card">
+            <h3>Predicting Poverty Reduction in Nigeria</h3>
+            <p>A machine learning approach to predicting poverty reduction in Nigeria.</p>
+            <a href="https://medium.com/towardsdev/predicting-poverty-reduction-in-nigeria-a-machine-learning-approach-49fd46b8b498" class="project-link">Read on Medium →</a>
+        </div>
+        <div class="project-card">
+            <h3>Francophone Africa: The Hidden Costs of French Influence</h3>
+            <p>An article discussing the hidden costs of French influence in Francophone Africa.</p>
+            <a href="https://medium.com/@dasbangf/francophone-africa-the-hidden-costs-of-french-influence-deba2badfdfc" class="project-link">Read on Medium →</a>
+        </div>
+        <div class="project-card">
+            <h3>ClothHues Merch Store</h3>
+            <p>An online store featuring artistic designs for clothing merchandise.</p>
+            <a href="https://www.bonfire.com/store/clothhues/" class="project-link">Visit Store →</a>
+        </div>
+    </div>
+</section>
+
+
+  <section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <form class="contact-form" data-aos="fade-up">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://github.com/Das4joe"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/dasbang-f-joseph-922810b6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+                    "><i class="fab fa-linkedin"></i></a>
+      <a href="https://be.net/dasbangfwangsh"><i class="fab fa-behance"></i></a>
+    </div>
+    <p>&copy; 2025 Portfolio. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+    // Particles.js Configuration
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#2c7a7b"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 0.5,
+          random: false
+        },
+        size: {
+          value: 3,
+          random: true
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#2c7a7b",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        }
+      },
+      retina_detect: true
+    });
+    // Typed.js
+    new Typed('.typed-text', {
+      strings: ['Data Scientist', 'Writer', 'Creative Thinker', 'Web Designer', 'Analyst', 'SEO           CopyWriter'],
+      typeSpeed: 50,
+      backSpeed: 30,
+      loop: true
+    });
+    // Dark Mode Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      const icon = themeToggle.querySelector('i');
+      if (body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+      }
+    });
+  </script>
+</body>
+
+</html>
